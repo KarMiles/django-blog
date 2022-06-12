@@ -1,8 +1,12 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
 from django.http import HttpResponseRedirect
+# SUCCESS CHALLENGE
+# from django.contrib import messages
 from .models import Post
 from .forms import CommentForm
+
+
 
 
 class PostList(generic.ListView):
@@ -61,7 +65,9 @@ class PostDetail(View):
                 "comments": comments,
                 "commented": True,
                 "comment_form": comment_form,
-                "liked": liked
+                "liked": liked,
+                # SUCCESS CHALLENGE
+                "success": 'Your message awaits acceptance.'
             },
         )
 

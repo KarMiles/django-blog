@@ -1,6 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 {% load crispy_forms_tags %}
 
+<!-- POST -->
 <div class="masthead">
     <div class="container">
         <div class="row g-0">
@@ -22,6 +23,7 @@
     </div>
 </div>
 
+<!-- LIKES -->
 <div class="container">
     <div class="row">
         <div class="col card mb-4  mt-3 left  top">
@@ -80,6 +82,8 @@
             <hr>
         </div>
     </div>
+
+    <!-- COMMENTS -->
     <div class="row">
         <div class="col-md-8 card mb-4  mt-3 ">
             <h3>Comments:</h3>
@@ -104,26 +108,53 @@
         </div>
         <div class="col-md-4 card mb-4  mt-3 ">
             <div class="card-body">
-                <!-- For later -->
+                <!-- Inserting comments -->
                 {% if commented %}
                 <div class="alert alert-success" role="alert">
                     Your comment is awaiting approval
                 </div>
-                {% else %}
-                {% if user.is_authenticated %}
 
-                <h3>Leave a comment:</h3>
-                <p>Posting as: {{ user.username }}</p>
-                <form method="post" style="margin-top: 1.3em;">
-                    {{ comment_form | crispy }}
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-signup btn-lg">Submit</button>
-                </form>
-                {% endif %}
+                <!-- SUCCESS CHALLENGE -->
+                <!-- Message after successful comment -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            {% for message in messages %}
+                            <div class="alert {{ message.tags }} alert-dismissible alert-success fade show" id="msg-success" role="alert">
+                                {{ message | safe }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                {% else %}
+                    {% if user.is_authenticated %}
+
+                    <h3>Leave a comment:</h3>
+                    <p>Posting as: {{ user.username }}</p>
+                    <form method="post" style="margin-top: 1.3em;">
+                        {{ comment_form | crispy }}
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-signup btn-lg">Submit</button>
+                    </form>
+
+                    {% endif %}
                 {% endif %}
             </div>
         </div>
     </div>
 </div>
+
+<!-- SUCCESS CHALLENGE -->
+<!-- Message timeout -->
+<script>
+    setTimeout(function () {
+        let messages = document.getElementById('msg-success');
+        let alert = new bootstrap.Alert(messages);
+        alert.close();
+    }, 30000);
+</script>
 
 {% endblock content %}
