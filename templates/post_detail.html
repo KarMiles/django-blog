@@ -114,21 +114,6 @@
                     Your comment is awaiting approval
                 </div>
 
-                <!-- SUCCESS CHALLENGE -->
-                <!-- Message after successful comment -->
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-8 offset-md-2">
-                            {% for message in messages %}
-                            <div class="alert {{ message.tags }} alert-dismissible alert-success fade show" id="msg-success" role="alert">
-                                {{ message | safe }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-
                 {% else %}
                     {% if user.is_authenticated %}
 
@@ -154,7 +139,7 @@
         let messages = document.getElementById('msg-success');
         let alert = new bootstrap.Alert(messages);
         alert.close();
-    }, 30000);
+    }, 300000);
 </script>
 
 {% endblock content %}
